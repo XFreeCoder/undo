@@ -26,6 +26,14 @@ export class LinkedList<T> implements List<T> {
     this._size = 0;
   }
 
+  private incrementSize() {
+    this._size++;
+  }
+
+  private decrementSize() {
+    this._size--;
+  }
+
   pop(): T {
     if (this.isEmpty()) {
       throw new Error("The list is empty.");
@@ -33,6 +41,8 @@ export class LinkedList<T> implements List<T> {
     const node = this.tail.prev as Node<T>;
     this.tail.prev = node.prev;
     node.prev.next = this.tail;
+
+    this.decrementSize();
     return node.value;
   }
 
@@ -45,6 +55,7 @@ export class LinkedList<T> implements List<T> {
     };
     this.tail.prev = node;
     prev.next = node;
+    this.incrementSize();
   }
 
   shift(): T {
@@ -54,6 +65,8 @@ export class LinkedList<T> implements List<T> {
     const node = this.head.next as Node<T>;
     this.head.next = node.next;
     node.next.prev = this.head;
+
+    this.decrementSize();
     return node.value;
   }
 
@@ -66,6 +79,7 @@ export class LinkedList<T> implements List<T> {
     };
     this.head.next = node;
     next.prev = node;
+    this.incrementSize();
   }
 
   clear(): void {
@@ -74,6 +88,7 @@ export class LinkedList<T> implements List<T> {
     }
     this.head.next = this.tail;
     this.tail.prev = this.head;
+    this._size = 0;
   }
 
   size(): number {

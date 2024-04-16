@@ -1,4 +1,4 @@
-import { LinkedList } from "./linked-list";
+import { LinkedList } from "./list";
 import type { History, List } from "./types";
 
 export class DefaultHistroy<State> implements History<State> {
@@ -18,7 +18,7 @@ export class DefaultHistroy<State> implements History<State> {
 
   undo(): State {
     if (this.isUndoStackEmpty()) {
-      throw new Error("No more undo history");
+      throw new Error("No more undo history.");
     }
     const state = this.undoStack.pop();
     this.redoStack.push(state);
@@ -27,7 +27,7 @@ export class DefaultHistroy<State> implements History<State> {
 
   redo(): State {
     if (this.isRedoStackEmpty()) {
-      throw new Error("No more redo history");
+      throw new Error("No more redo history.");
     }
     const state = this.redoStack.pop();
     this.undoStack.push(state);
@@ -35,7 +35,7 @@ export class DefaultHistroy<State> implements History<State> {
   }
 
   push(state: State): void {
-    if (this.undoStack.size() > this.limit) {
+    if (this.undoStack.size() >= this.limit) {
       this.undoStack.shift();
     }
     this.undoStack.push(state);

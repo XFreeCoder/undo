@@ -10,10 +10,6 @@ interface History<State> {
   isRedoStackEmpty(): boolean;
 }
 
-interface Transaction {
-  commit(): void;
-}
-
 interface List<T> {
   /**
    * @description remove the last element from the list and returns that element.
@@ -51,4 +47,13 @@ interface List<T> {
   isEmpty(): boolean;
 }
 
-export type { History, Transaction, List };
+interface Transaction {
+  commit(): void;
+}
+
+interface State {
+  undo: Transaction;
+  redo: Transaction;
+}
+
+export type { History, List, Transaction, State };
