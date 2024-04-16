@@ -2,12 +2,20 @@
   "name": "@undo/core",
   "version": "0.0.0",
   "private": true,
-  "exports": "./src/index.ts",
-  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
   "scripts": {
     "coverage": "vitest --coverage",
-    "dev": "echo 'Add dev script here'",
-    "build": "echo 'Add build script here'",
+    "build": "vite build",
     "test": "vitest",
     "lint": "eslint . --max-warnings 0"
   },
@@ -20,6 +28,7 @@
     "@vitest/ui": "^1.5.0",
     "eslint": "^8.57.0",
     "typescript": "^5.3.3",
+    "vite": "^5.2.9",
     "vitest": "^1.5.0"
   }
 }
