@@ -7,12 +7,18 @@
     "dev": "turbo dev",
     "format": "prettier --write .",
     "lint": "turbo lint",
+    "prepare": "husky",
     "test": "turbo test"
+  },
+  "lint-staged": {
+    "*": "prettier -w --ignore-unknown"
   },
   "prettier": "@vercel/style-guide/prettier",
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "turbo": "latest"
   },
