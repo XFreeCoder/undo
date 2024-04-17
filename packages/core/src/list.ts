@@ -1,4 +1,4 @@
-import { List } from "./types";
+import { List } from './types';
 
 type Node<T> = {
   prev: Node<T> | Head<T>;
@@ -35,8 +35,8 @@ export class LinkedList<T> implements List<T> {
   }
 
   pop(): T {
-    if (this.isEmpty()) {
-      throw new Error("The list is empty.");
+    if (this.isEmpty) {
+      throw new Error('The list is empty.');
     }
     const node = this.tail.prev as Node<T>;
     this.tail.prev = node.prev;
@@ -59,8 +59,8 @@ export class LinkedList<T> implements List<T> {
   }
 
   shift(): T {
-    if (this.isEmpty()) {
-      throw new Error("The list is empty.");
+    if (this.isEmpty) {
+      throw new Error('The list is empty.');
     }
     const node = this.head.next as Node<T>;
     this.head.next = node.next;
@@ -83,7 +83,7 @@ export class LinkedList<T> implements List<T> {
   }
 
   clear(): void {
-    if (this.isEmpty()) {
+    if (this.isEmpty) {
       return;
     }
     this.head.next = this.tail;
@@ -91,11 +91,11 @@ export class LinkedList<T> implements List<T> {
     this._size = 0;
   }
 
-  size(): number {
+  get size(): number {
     return this._size;
   }
 
-  isEmpty(): boolean {
-    return this.size() === 0;
+  get isEmpty(): boolean {
+    return this.size === 0;
   }
 }

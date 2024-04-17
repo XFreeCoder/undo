@@ -1,13 +1,27 @@
 /* eslint-disable no-unused-vars */
 
-interface History<State> {
+type VoidCallback = () => void;
+
+interface Listenable {
+  /**
+   * @description Register a closure to be called when the object notifies its listeners.
+   */
+  addListener(listener: VoidCallback): void;
+
+  /**
+   * @description Remove a previously registered closure from the list of closures that the
+   * object notifies.
+   */
+  removeListener(listener: VoidCallback): void;
+}
+
+interface History<State> extends Listenable {
   undo(): State;
   redo(): State;
   push(state: State): void;
-  undoStackSize(): number;
-  isUndoStackEmpty(): boolean;
-  redoStackSize(): number;
-  isRedoStackEmpty(): boolean;
+  clear(): void;
+  get hasUndo(): boolean;
+  get hasRedo(): boolean;
 }
 
 interface List<T> {
@@ -39,12 +53,12 @@ interface List<T> {
   /**
    * @description returns the number of elements in the list
    */
-  size(): number;
+  get size(): number;
 
   /**
    * @description returns whether the list is empty
    */
-  isEmpty(): boolean;
+  get isEmpty(): boolean;
 }
 
 interface Transaction {
@@ -56,4 +70,4 @@ interface State {
   redo: Transaction;
 }
 
-export type { History, List, Transaction, State };
+export type { Listenable, History, List, Transaction, State, VoidCallback };

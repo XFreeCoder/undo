@@ -1,5 +1,5 @@
-import { beforeEach, expect, test } from "vitest";
-import { DefaultHistroy, History, LinkedList } from "../src";
+import { beforeEach, expect, test, vi } from 'vitest';
+import { DefaultHistroy, History, LinkedList } from '../src';
 
 let history: History<number>;
 
@@ -7,15 +7,15 @@ beforeEach(() => {
   history = new DefaultHistroy();
 });
 
-test("undo empty history should throw error", () => {
-  expect(() => history.undo()).toThrowError("No more undo history.");
+test('undo empty history should throw error', () => {
+  expect(() => history.undo()).toThrowError('No more undo history.');
 });
 
-test("redo empty history should throw error", () => {
-  expect(() => history.redo()).toThrowError("No more redo history.");
+test('redo empty history should throw error', () => {
+  expect(() => history.redo()).toThrowError('No more redo history.');
 });
 
-test("should return correct undo/redo state", () => {
+test('should return correct undo/redo state', () => {
   history.push(1);
   history.push(2);
   expect(history.undo()).toBe(2);
@@ -27,67 +27,50 @@ test("should return correct undo/redo state", () => {
   expect(history.undo()).toBe(1);
 });
 
-test("should return correct undo/redo stack size", () => {
-  expect(history.undoStackSize()).toBe(0);
-  expect(history.redoStackSize()).toBe(0);
-
-  history.push(1);
-  expect(history.undoStackSize()).toBe(1);
-  expect(history.redoStackSize()).toBe(0);
-
-  history.push(2);
-  expect(history.undoStackSize()).toBe(2);
-  expect(history.redoStackSize()).toBe(0);
-
-  history.undo();
-  expect(history.undoStackSize()).toBe(1);
-  expect(history.redoStackSize()).toBe(1);
-
-  history.redo();
-  expect(history.undoStackSize()).toBe(2);
-  expect(history.redoStackSize()).toBe(0);
-
-  history.undo();
-  history.undo();
-  expect(history.undoStackSize()).toBe(0);
-  expect(history.redoStackSize()).toBe(2);
-
-  history.push(3);
-  expect(history.undoStackSize()).toBe(1);
-  expect(history.redoStackSize()).toBe(0);
-});
-
-test("isUndoStackEmpty should return true after undo the last state", () => {
+test('hasUndo should return false after undo the last state', () => {
   history.push(1);
   history.undo();
-  expect(history.isUndoStackEmpty()).toBeTruthy();
+  expect(history.hasUndo).toBeFalsy();
 });
 
-test("isUndoStackEmpty should return false after push a new state", () => {
+test('hasUndo should return true after push a new state', () => {
   history.push(1);
-  expect(history.isUndoStackEmpty()).toBeFalsy();
+  expect(history.hasUndo).toBeTruthy();
 });
 
-test("isRedoStackEmpty should return true after redo the last state", () => {
+test('hasRedo should return false after redo the last state', () => {
   history.push(1);
   history.undo();
   history.redo();
-  expect(history.isRedoStackEmpty()).toBeTruthy();
+  expect(history.hasRedo).toBeFalsy();
 });
 
-test("isRedoStackEmpty should return false after undo", () => {
+test('hasRedo should return true after undo', () => {
   history.push(1);
   history.undo();
-  expect(history.isRedoStackEmpty()).toBeFalsy();
+  expect(history.hasRedo).toBeTruthy();
 });
 
-test("limit should work correctly", () => {
+test('limit should work correctly', () => {
   history = new DefaultHistroy(new LinkedList(), new LinkedList(), 2);
   history.push(1);
   history.push(2);
   history.push(3);
   history.push(4);
-  expect(history.undoStackSize()).toBe(2);
   expect(history.undo()).toBe(4);
   expect(history.undo()).toBe(3);
+  expect(history.hasUndo).toBeFalsy();
+});
+
+test('change state should notifier listener', () => {
+  const listener = vi.fn();
+  history.addListener(listener);
+  history.push(1);
+  expect(listener).toHaveBeenCalledTimes(1);
+
+  history.push(2);
+  history.undo();
+  history.redo();
+  history.clear();
+  expect(listener).toHaveBeenCalledTimes(5);
 });

@@ -2,22 +2,22 @@
   "name": "@undo/core",
   "version": "0.0.0",
   "private": true,
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     }
   },
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "coverage": "vitest --coverage",
     "build": "vite build",
-    "test": "vitest",
-    "lint": "eslint . --max-warnings 0"
+    "coverage": "vitest --coverage",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
