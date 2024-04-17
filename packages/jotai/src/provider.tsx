@@ -1,15 +1,14 @@
 import { Provider, useStore } from 'jotai';
 import { ReactNode, useLayoutEffect } from 'react';
 import { historyAtom, historyStore, hasUndoAtom, hasRedoAtom } from './store';
-import type { History, State } from '@undo/core';
+import { DefaultHistroy, type History, type State } from '@undo/core';
 
-function InitHistory({
-  history,
-  children,
-}: {
-  history: History<State>;
+type Props = {
+  history?: History<State>;
   children: ReactNode;
-}) {
+};
+
+function InitHistory({ history = new DefaultHistroy(), children }: Props) {
   const store = useStore();
 
   useLayoutEffect(() => {
@@ -27,10 +26,7 @@ function InitHistory({
   return <>{children}</>;
 }
 
-export function HistoryProvider(props: {
-  history: History<State>;
-  children: ReactNode;
-}) {
+export function HistoryProvider(props: Props) {
   return (
     <Provider store={historyStore}>
       <InitHistory {...props} />

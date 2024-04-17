@@ -9,8 +9,4 @@ const hasRedoAtom = atom<boolean>(false);
 
 const historyStore = createStore();
 
-historyStore.set(historyAtom, new DefaultHistroy<State>());
-historyStore.set(hasUndoAtom, false);
-historyStore.set(hasRedoAtom, false);
-
 export { historyAtom, hasUndoAtom, hasRedoAtom, historyStore };
