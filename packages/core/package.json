@@ -2,6 +2,7 @@
   "name": "@undo/core",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -14,7 +15,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && tsc",
     "coverage": "vitest --coverage",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest"
