@@ -27,6 +27,7 @@ function useRedo() {
   });
 }
 
+/* eslint-disable no-unused-vars */
 type Setter = <Value, Result>(
   atom: WritableAtom<Value, [Value], Result>,
   value: Value,
