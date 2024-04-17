@@ -61,13 +61,9 @@ interface List<T> {
   get isEmpty(): boolean;
 }
 
-interface Transaction {
-  commit(): void;
-}
-
 interface State {
-  undo: Transaction;
-  redo: Transaction;
+  undo: VoidCallback;
+  redo: VoidCallback;
 }
 
-export type { Listenable, History, List, Transaction, State, VoidCallback };
+export type { Listenable, History, List, State, VoidCallback };
