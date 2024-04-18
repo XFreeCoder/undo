@@ -16,8 +16,8 @@ export default defineConfig({
         globals: {
           react: 'React',
           jotai: 'Jotai',
-          'jotai/utils': 'Jotai/utils',
-          'react/jsx-runtime': 'JsxRuntime',
+          'jotai/utils': 'Utils',
+          'react/jsx-runtime': 'JSXRuntime',
         },
       },
     },
