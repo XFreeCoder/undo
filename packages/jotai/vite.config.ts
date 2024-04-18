@@ -11,9 +11,13 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      external: ['react', 'jotai'],
+      external: ['react', 'jotai', 'jotai/utils'],
       output: {
-        globals: { react: 'React', jotai: 'jotai' },
+        globals: {
+          react: 'React',
+          jotai: 'jotai',
+          'jotai/utils': 'jotai/utils',
+        },
       },
     },
   },
