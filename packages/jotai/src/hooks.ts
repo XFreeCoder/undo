@@ -1,4 +1,4 @@
-import { useAtomValue, Getter, WritableAtom } from 'jotai';
+import { useAtomValue, Getter, WritableAtom, createStore } from 'jotai';
 import { useAtomCallback } from 'jotai/utils';
 import { hasRedoAtom, hasUndoAtom, historyAtom } from './store';
 import { State, Transaction } from '@undo/core';
@@ -28,6 +28,10 @@ function useRedo() {
 }
 
 /* eslint-disable no-unused-vars */
+type Options = {
+  store?: ReturnType<typeof createStore>;
+};
+
 type Setter = <Value, Result>(
   atom: WritableAtom<Value, [Value], Result>,
   value: Value,
@@ -35,11 +39,11 @@ type Setter = <Value, Result>(
 
 function useHistoryCallback<Result, Args extends unknown[]>(
   callback: (get: Getter, set: Setter, ...args: Args) => Result,
-  options?: any,
+  options?: Options,
 ): (...args: Args) => Result {
   return useAtomCallback<Result, Args>((get, set, ...args) => {
-    const undoTransaction: Transaction = new Transaction();
-    const redoTransaction: Transaction = new Transaction();
+    const undoTransaction = new Transaction();
+    const redoTransaction = new Transaction();
     const setWithHistory: Setter = (atom, value) => {
       const prevValue = get(atom);
       const undo = () => {

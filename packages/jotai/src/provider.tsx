@@ -1,35 +1,38 @@
-import { Provider, useStore } from 'jotai';
-import { ReactNode, useLayoutEffect } from 'react';
-import { historyAtom, historyStore, hasUndoAtom, hasRedoAtom } from './store';
+import { Provider, createStore } from 'jotai';
+import { ReactNode, useMemo } from 'react';
 import { DefaultHistroy, type History, type State } from '@undo/core';
+import { historyAtom, hasUndoAtom, hasRedoAtom } from './store';
 
 type Props = {
   history?: History<State>;
   children: ReactNode;
 };
 
-function InitHistory({ history = new DefaultHistroy(), children }: Props) {
-  const store = useStore();
+export function HistoryProvider({ history, children }: Props) {
+  const store = useMemo(() => {
+    const store = createStore();
 
-  useLayoutEffect(() => {
-    store.set(historyAtom, history);
-    const listener = () => {
+    store.sub(historyAtom, () => {
+      const history = store.get(historyAtom);
       store.set(hasUndoAtom, history.hasUndo);
       store.set(hasRedoAtom, history.hasRedo);
-    };
-    history.addListener(listener);
-    return () => {
-      history.removeListener(listener);
-    };
-  }, [history, store]);
 
-  return <>{children}</>;
-}
+      const listener = () => {
+        store.set(hasUndoAtom, history.hasUndo);
+        store.set(hasRedoAtom, history.hasRedo);
+      };
+      history.addListener(listener);
 
-export function HistoryProvider(props: Props) {
-  return (
-    <Provider store={historyStore}>
-      <InitHistory {...props} />
-    </Provider>
-  );
+      return () => {
+        history.removeListener(listener);
+      };
+    });
+
+    const innerHistory = history || new DefaultHistroy();
+    store.set(historyAtom, innerHistory);
+
+    return store;
+  }, [history]);
+
+  return <Provider store={store}>{children}</Provider>;
 }
