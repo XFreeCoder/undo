@@ -2,6 +2,8 @@
 
 import {
   HistoryProvider,
+  History,
+  State,
   useHasRedo,
   useHasUndo,
   useHistoryCallback,
@@ -10,7 +12,6 @@ import {
 } from '@undo/jotai';
 import { Button, ButtonGroup, Center, Container, Stack, Text } from '@repo/ui';
 import { atom, useAtomValue } from 'jotai';
-import { DevTools } from 'jotai-devtools';
 
 const countAtom = atom(0);
 countAtom.debugLabel = 'count';
@@ -69,10 +70,13 @@ function Counter() {
   return <Text>{count}</Text>;
 }
 
-export function Playground(): JSX.Element {
+type Props = {
+  history?: History<State>;
+};
+
+export function Playground({ history }: Props): JSX.Element {
   return (
-    <HistoryProvider>
-      <DevTools />
+    <HistoryProvider history={history}>
       <Container h="full">
         <Center h="full">
           <Stack>
