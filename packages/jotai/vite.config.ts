@@ -11,12 +11,13 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      external: ['react', 'jotai', 'jotai/utils'],
+      external: ['react', 'react/jsx-runtime', 'jotai', 'jotai/utils'],
       output: {
         globals: {
           react: 'React',
-          jotai: 'jotai',
-          'jotai/utils': 'jotai/utils',
+          jotai: 'Jotai',
+          'jotai/utils': 'Jotai/utils',
+          'react/jsx-runtime': 'JsxRuntime',
         },
       },
     },
