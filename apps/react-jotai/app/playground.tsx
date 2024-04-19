@@ -1,10 +1,9 @@
 'use client';
 
-import { History, State } from '@xfreecoder/undo';
 import {
-  HistoryProvider,
   useHasRedo,
   useHasUndo,
+  useHistory,
   useHistoryCallback,
   useRedo,
   useUndo,
@@ -69,28 +68,24 @@ function Counter() {
   return <Text>{count}</Text>;
 }
 
-type Props = {
-  history?: History<State>;
-};
+export function Playground(): JSX.Element {
+  useHistory();
 
-export function Playground({ history }: Props): JSX.Element {
   return (
-    <HistoryProvider history={history}>
-      <Container h="full">
-        <Center h="full">
-          <Stack>
-            <Counter />
-            <ButtonGroup>
-              <DecrementButton />
-              <IncrementButton />
-            </ButtonGroup>
-            <ButtonGroup>
-              <UndoButton />
-              <RedoButton />
-            </ButtonGroup>
-          </Stack>
-        </Center>
-      </Container>
-    </HistoryProvider>
+    <Container h="full">
+      <Center h="full">
+        <Stack>
+          <Counter />
+          <ButtonGroup>
+            <DecrementButton />
+            <IncrementButton />
+          </ButtonGroup>
+          <ButtonGroup>
+            <UndoButton />
+            <RedoButton />
+          </ButtonGroup>
+        </Stack>
+      </Center>
+    </Container>
   );
 }

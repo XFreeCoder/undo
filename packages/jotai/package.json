@@ -9,11 +9,6 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0"
   },
-  "dependencies": {
-    "@undo/core": "workspace:*",
-    "jotai": "^2.8.0",
-    "react": "^18.2.0"
-  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
@@ -22,5 +17,10 @@
     "@types/react": "^18.2.61",
     "eslint": "^8.57.0",
     "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "@undo/core": "workspace:*",
+    "jotai": "^2.8.0",
+    "react": "^18.2.0"
   }
 }
