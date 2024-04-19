@@ -1,6 +1,20 @@
 {
   "name": "@xfreecoder/undo",
   "version": "0.0.1",
+  "description": "A undo manager for web developer.",
+  "keywords": [
+    "undo"
+  ],
+  "homepage": "https://github.com/XFreeCoder/undo#readme",
+  "bugs": {
+    "url": "https://github.com/XFreeCoder/undo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XFreeCoder/undo.git"
+  },
+  "license": "MIT",
+  "author": "MrHeer",
   "type": "module",
   "exports": {
     ".": {
