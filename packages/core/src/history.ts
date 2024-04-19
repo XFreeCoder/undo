@@ -2,7 +2,7 @@ import { ChangeNotifier } from './change-notifier';
 import { LinkedList } from './list';
 import type { History, List } from './types';
 
-export class DefaultHistroy<State>
+export class DefaultHistory<State>
   extends ChangeNotifier
   implements History<State>
 {

@@ -1,6 +1,6 @@
 import { Provider, createStore } from 'jotai';
 import { ReactNode, useMemo } from 'react';
-import { DefaultHistroy, type History, type State } from '@undo/core';
+import { DefaultHistory, type History, type State } from '@undo/core';
 import { historyAtom, hasUndoAtom, hasRedoAtom } from './store';
 
 type Props = {
@@ -28,7 +28,7 @@ export function HistoryProvider({ history, children }: Props) {
       };
     });
 
-    const innerHistory = history || new DefaultHistroy();
+    const innerHistory = history || new DefaultHistory();
     store.set(historyAtom, innerHistory);
 
     return store;

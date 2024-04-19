@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
-import { History, State, DefaultHistroy } from '@undo/core';
+import { History, State, DefaultHistory } from '@undo/core';
 
-const historyAtom = atom<History<State>>(new DefaultHistroy<State>());
+const historyAtom = atom<History<State>>(new DefaultHistory<State>());
 historyAtom.debugLabel = 'history';
 
 const hasUndoAtom = atom<boolean>(false);

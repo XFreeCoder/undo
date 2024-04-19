@@ -23,9 +23,7 @@
   },
   "dependencies": {
     "@undo/core": "workspace:*",
-    "@undo/jotai": "workspace:*",
-    "jotai": "^2.8.0",
-    "react": "^18.2.0"
+    "@undo/jotai": "workspace:*"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
