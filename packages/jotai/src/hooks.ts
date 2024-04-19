@@ -2,7 +2,7 @@ import { useAtomValue, Getter, useStore } from 'jotai';
 import { useAtomCallback } from 'jotai/utils';
 import { DefaultHistory, History, State, Transaction } from '@undo/core';
 import { useLayoutEffect, useCallback } from 'react';
-import { hasRedoAtom, hasUndoAtom, historyAtom, initStore } from './store';
+import { getHisotry, hasRedoAtom, hasUndoAtom, initHistory } from './store';
 import {
   UseAtomValueOptions,
   UseAtomCallbackOptions,
@@ -20,7 +20,7 @@ function useHasRedo(options?: UseAtomValueOptions) {
 function useUndo(options?: UseAtomCallbackOptions) {
   return useAtomCallback(
     useCallback((get) => {
-      const history = get(historyAtom);
+      const history = getHisotry(get);
       const state = history.undo();
       state.undo();
     }, []),
@@ -31,7 +31,7 @@ function useUndo(options?: UseAtomCallbackOptions) {
 function useRedo(options?: UseAtomCallbackOptions) {
   return useAtomCallback(
     useCallback((get) => {
-      const history = get(historyAtom);
+      const history = getHisotry(get);
       const state = history.redo();
       state.redo();
     }, []),
@@ -42,7 +42,7 @@ function useRedo(options?: UseAtomCallbackOptions) {
 function useClear(options?: UseAtomCallbackOptions) {
   return useAtomCallback(
     useCallback((get) => {
-      const history = get(historyAtom);
+      const history = getHisotry(get);
       history.clear();
     }, []),
     options,
@@ -52,7 +52,7 @@ function useClear(options?: UseAtomCallbackOptions) {
 function useHistory(history?: History<State>) {
   const store = useStore();
   useLayoutEffect(() => {
-    initStore(store, history || new DefaultHistory());
+    initHistory(store, history || new DefaultHistory());
   }, [store, history]);
 }
 
@@ -66,6 +66,7 @@ function useHistoryCallback<Result, Args extends unknown[]>(
   options?: UseAtomCallbackOptions,
 ): (...args: Args) => Result {
   return useAtomCallback<Result, Args>((get, set, ...args) => {
+    const history = getHisotry(get);
     const undoTransaction = new Transaction();
     const redoTransaction = new Transaction();
     const setWithHistory: UseHistoryCallbackSetter = (atom, value) => {
@@ -86,7 +87,6 @@ function useHistoryCallback<Result, Args extends unknown[]>(
       undo: undoTransaction.reverse().commit(),
       redo: redoTransaction.commit(),
     };
-    const history = get(historyAtom);
     history.push(state);
     return result;
   }, options);
