@@ -1,15 +1,14 @@
 'use client';
 
+import { History, State } from '@xfreecoder/undo';
 import {
   HistoryProvider,
-  History,
-  State,
   useHasRedo,
   useHasUndo,
   useHistoryCallback,
   useRedo,
   useUndo,
-} from '@undo/jotai';
+} from '@xfreecoder/undo/jotai';
 import { Button, ButtonGroup, Center, Container, Stack, Text } from '@repo/ui';
 import { atom, useAtomValue } from 'jotai';
 

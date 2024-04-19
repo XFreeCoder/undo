@@ -1,6 +1,5 @@
 {
   "name": "undo",
-  "private": true,
   "scripts": {
     "build": "turbo build",
     "coverage": "turbo coverage",

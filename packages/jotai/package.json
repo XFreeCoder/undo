@@ -1,25 +1,18 @@
 {
   "name": "@undo/jotai",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
-    }
+    ".": "./src/index.ts"
   },
-  "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "vite build && tsc",
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@undo/core": "workspace:*"
+    "@undo/core": "workspace:*",
+    "jotai": "^2.8.0",
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -27,12 +20,6 @@
     "@types/eslint": "^8.56.5",
     "@types/node": "^20.11.24",
     "eslint": "^8.57.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.2.9"
-  },
-  "peerDependencies": {
-    "@types/react": ">=17.0.0",
-    "jotai": ">=2.8.0",
-    "react": ">=17.0.0"
+    "typescript": "^5.3.3"
   }
 }

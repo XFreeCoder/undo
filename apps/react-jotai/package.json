@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "@undo/jotai": "workspace:*",
+    "@xfreecoder/undo": "workspace:*",
     "jotai": "^2.8.0",
     "next": "^14.1.1",
     "react": "^18.2.0",
