@@ -16,5 +16,10 @@ export default defineConfig({
       external: ['react', 'react/jsx-runtime', 'jotai', 'jotai/utils'],
     },
   },
-  plugins: [dts({})],
+  plugins: [
+    dts({
+      rollupTypes: true,
+      bundledPackages: ['@undo/*'],
+    }),
+  ],
 });

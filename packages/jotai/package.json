@@ -6,7 +6,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "types": "./dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "lint": "eslint . --max-warnings 0"
   },
   "devDependencies": {
