@@ -1,10 +1,10 @@
 import { beforeEach, expect, test, vi } from 'vitest';
-import { DefaultHistroy, History, LinkedList } from '../src';
+import { DefaultHistory, History, LinkedList } from '../src';
 
 let history: History<number>;
 
 beforeEach(() => {
-  history = new DefaultHistroy();
+  history = new DefaultHistory();
 });
 
 test('undo empty history should throw error', () => {
@@ -52,7 +52,7 @@ test('hasRedo should return true after undo', () => {
 });
 
 test('limit should work correctly', () => {
-  history = new DefaultHistroy(new LinkedList(), new LinkedList(), 2);
+  history = new DefaultHistory(new LinkedList(), new LinkedList(), 2);
   history.push(1);
   history.push(2);
   history.push(3);
